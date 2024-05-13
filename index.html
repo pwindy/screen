@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--当前页面的三要素-->
+    <title>大屏展示页面</title>
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <link rel="stylesheet" type='text/css' href="./css/index.css"><!-- 引入css代码文件 -->
+    <link rel="stylesheet" type="text/css" href="./layui/css/layui.css">
+
+    <link rel="stylesheet" type="text/css" href="./css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./css/htmleaf-demo.css">
+    <style>
+        .wrap{
+        font-family: Roboto;
+        text-align: center;
+        }
+        .tank{
+        margin:0 50px;
+        display: inline-block;
+        }
+
+
+        .middle .m_center .imgicon.img_normal.shenzhen {/*广东深圳  #normal1  #normal4 #normal16 #normal21*/ 
+            left:60%;
+            top:78%;
+            z-index:30;
+        }
+        .middle .m_center .imgicon.img_normal.zhongshan {/*广东中山 #normal2 #normal3 */
+            left:58.3%;
+            top:78%;
+            z-index:40;
+        }
+        .middle .m_center .imgicon.img_normal.zhuhai {/*广东珠海 #normal5 #normal6 ##normal9 ##normal20 ##normal22 */
+            left:58.5%;
+            top:80%;
+            z-index:50;
+        }
+        .middle .m_center .imgicon.img_normal.yunnan {/*云南楚雄 #normal7 #normal13 ##normal14 */
+            left:36%;
+            top:70%;
+        }
+        .middle .m_center .imgicon.img_normal.qiaotou {/*广东东莞桥头 #normal8 #normal9 #normal10 #normal11 */
+            left:58.9%;
+            top:76%;
+            z-index:20;
+        }
+        
+        .middle .m_center .imgicon.img_normal.guangzhou {/*广东广州 #normal12 #normal17 #normal18 */
+            left:57.5%;
+            top:76%;
+            z-index:11;
+        }
+
+        .middle .m_center .imgicon.img_normal.shanwei {/* 广东汕尾 #normal15 */
+            left:63%;
+            top:78.5%;
+            z-index:10;
+        }
+
+        .middle .m_center .imgicon.img_normal.qingyuan {/* 广东清远 */
+            left:57%;
+            top:75%;
+            z-index:10;
+        }
+        .middle .m_center .imgicon.img_normal.longyan {/* 福建龙岩 */
+            left:65.5%;
+            top:73.5%;
+            z-index:10;
+        }
+
+         .middle .m_center .imgicon.img_normal.yanan { /* 陕西延安 */
+            left:56%;
+            top:44.5%;
+            z-index:10;
+        } 
+        .middle .m_center .imgicon.img_normal.yangjiang {/* 广东阳江 */
+            left:55.5%;
+            top:80%;
+            z-index:10;
+        }
+        .middle .m_center .imgicon.img_normal.heyuan {/* 广东河源 */
+            left:61%;
+            top:76%;
+            z-index:10;
+        }
+        .middle .m_center .imgicon.img_normal.beijing {/* 北京 */
+            left:67.5%;
+            top:37.5%;
+            z-index:10;
+        }
+        .middle .m_center .imgicon.img_normal.sichuan {/* 四川乐山 */
+            left:42%;
+            top:59%;
+            z-index:10;
+        }
+        .middle .m_center .imgicon.img_normal.shanxi {/* 山西黎光 */
+            left:58.5%;
+            top:45.5%;
+            z-index:10;
+        }
+
+        .middle .m_center .imgicon.img_normal.jinan {/* 山东济南 */
+            left:67.5%;
+            top:45.5%;
+            z-index:10;
+        }
+
+        .middle .m_center .imgicon.img_normal.kelamayi {/* 新疆 克拉玛依 */
+            left:29.5%;
+            top:14.5%;
+            z-index:10;
+        }
+
+        .middle .m_center .imgicon.img_normal.yixian {/* 河北 易县 */
+            left:65.5%;
+            top:39.5%;
+            z-index:10;
+        }
+
+        .middle .m_center .imgicon.img_normal.shanghai {/* 上海 */
+            left:74%;
+            top:59%;
+            z-index:10;
+        }
+
+        .middle .m_center .imgicon.img_normal.fuzhou {/* 福建福州 */
+            left:69.5%;
+            top:71.5%;
+            z-index:10;
+        }
+
+        .middle .m_center .imgicon.img_normal.yulin {/* 广西玉林 */
+            left:52.5%;
+            top:77.5%;
+            z-index:10;
+        }
+
+        .middle .m_center .imgicon.img_normal.yecheng {/* 新疆叶城 */
+            left:10.5%;
+            top:27.5%;
+            z-index:10;
+        }
+
+
+        .layui-layer.layui-layer-rim{
+            background-color:  rgba(32,57,88,0.9);
+            /* border:1px solid #3D507B; */
+            border:none !important;
+        }
+
+        /* 弹框的标题行 */
+        .layui-layer-rim .layui-layer-title{
+            background-color: rgba(32,57,88,0.9);
+            font-family: MicrosoftYaHei;
+            font-size: 14px;
+            color: #FFFFFF;
+            letter-spacing: 1.67px;
+            font-weight: 400;
+            border-bottom:none;
+            border-radius:5px 5px 0 0;
+            overflow:hidden;
+        }
+
+        /* 弹框的退出叉叉 */
+        .layui-layer-rim .layui-layer-setwin .layui-layer-ico{
+            background: url('./images/close.svg') no-repeat center/cover;
+            width:12px;
+            height:12px;
+
+        }
+
+        /* 弹框的主要文本部分 */
+        .layui-layer-rim .layui-layer-content{
+            text-align: center;
+            padding:10px 10px 20px;
+            background-color: rgba(32,57,88,0.9);
+            border-radius:0 0 5px 5px;
+        }
+
+        .layui-layer-rim .layui-layer-content .layui-btn-normal{
+            border: 1px solid #3D8BFF;
+            border-radius: 15px;
+            background:transparent;
+            color:#3D8BFF;
+        }
+        .layui-layer-rim .layui-layer-content .layui-btn-danger{
+            border: 1px solid #E61C46;
+            border-radius: 15px;
+            background:transparent;
+            color:#E61C46;
+        }
+
+
+    </style>
+
+
+</head>
+
+<body id='body'>
+    <div id="container">
+        <div class="top">
+            <div class="top_wrap">
+                <div class="top_content">
+                    <img class="top_img" src="./images/logo.svg" alt="" width="100%">
+                    <span class="top_span">智能运维云平台</span>
+                </div>
+                <div class="top_bg">
+                    <div class="com_title">
+                        xxxxxxx科技有限公司
+                    </div>
+                    <div class="show_time" id="realTime">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="middle">
+            <div class="m_left">
+                <div class="l_top leftdiv">
+                    <div class="l_title first">
+                        <img class="tit_img" src="./images/ssgl.svg" alt="">
+                        <span class="tit_content">实时功率 / 发电量</span>
+                        <span class="tit_encontent">Real-time Power/Power Generation</span>
+                    </div>
+                    <div class="l_content t_content">
+                        <div class="t_tit ssgl">
+                            <p>实时功率</p>
+                            <div class="c_number">
+                                <div><span>0</span></div>
+                                <div><span>3</span></div>
+                                <div><span>4</span></div>
+                                <div><span>1</span></div>
+                                <div><span>.</span></div>
+                                <div><span>0</span></div>
+                                <div><span>7</span></div>
+                                <div><span>kW</span></div>
+                            </div>
+
+                        </div>
+
+                        <div class="t_tit drfd">
+                            <p>当日发电量</p>
+                            <div class="c_number ">
+                                <div><span>0</span></div>
+                                <div><span>3</span></div>
+                                <div><span>4</span></div>
+                                <div><span>1</span></div>
+                                <div><span>.</span></div>
+                                <div><span>0</span></div>
+                                <div><span>7</span></div>
+                                <div><span id="drfddw">kWh</span></div>
+                            </div>
+                        </div>
+
+                        <div class="t_tit zfd">
+                            <p>总发电量</p>
+                            <div class="c_number">
+                                <div><span>0</span></div>
+                                <div><span>3</span></div>
+                                <div><span>4</span></div>
+                                <div><span>1</span></div>
+                                <div><span>.</span></div>
+                                <div><span>0</span></div>
+                                <div><span>7</span></div>
+                                <div><span>MWh</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="l_middle leftdiv">
+                    <div class="l_title">
+                        <img class="tit_img" src="./images/fadl.png" alt="">
+                        <span class="tit_content">发电量</span>
+                        <span class="tit_encontent">Power Generation</span>
+                    </div>
+                    <div class="l_content m_content">
+                        <div class="c_content">
+                            <div class="theday">
+                                <p>当日发电量</p>
+                                <div class="daydata">0441.13</div>
+                                <span class="danfei">万度</span>
+                            </div>
+                            <div class="theall">
+                                <p>总发电量</p>
+                                <div class="alldata">0441.13</div>
+                                <span class="danfei">万度</span class="danwei">
+                            </div>
+                        </div>
+
+                    </div>
+                </div> -->
+                <div class="l_bottom leftdiv">
+                    <div class="l_title">
+                        <img class="tit_img" src="./images/jnjp.svg" alt="">
+                        <span class="tit_content">节能减排</span>
+                        <span class="tit_encontent">Emission Reduction</span>
+                    </div>
+                    <div class="l_content b_content">
+                        <div class="c_content">
+
+                            <div class="biaozhun">
+                                <img src="./images/bzm.svg" alt="">
+                                <p>累计节约柴油</p>
+                                <span class="dun">吨</span>
+                                <div class="bzdata">300181.754</div>
+
+                            </div>
+
+                            <div class="eyht">
+                                <img src="./images/eyht.svg" alt="">
+                                <p>累计减少碳排放</p>
+                                <span class="dun">吨</span>
+                                <div class="eydata">748203.021</div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="m_center" id="centerid">
+                <img class="themap" src="./images/map.svg" alt="">
+                <div class="maptips">
+                    <div class="tipsline">
+                        <span class="normalrun"></span>
+                        <p>正常运行</p>
+                    </div>
+                    <div class="tipsline">
+                        <span class="wranrun"></span>
+                        <p>告警运行</p>
+                    </div>
+                    <div class="tipsline">
+                        <span class="norun"></span>
+                        <p>已完成</p>
+                    </div>
+
+                </div>
+
+                <img class="img_normal imgicon shenzhen" data-name="shenzhen" src="./images/normal.svg" alt="深圳" title="深圳">
+                <img class="img_normal imgicon zhongshan" data-name="zhongshan" src="./images/normal.svg" alt="中山" title="中山">
+                <img class="img_normal imgicon zhuhai" data-name="zhuhai" src="./images/normal.svg" alt="珠海" title="珠海">
+                <img class="img_normal imgicon yunnan" data-name="yunnan" src="./images/normal.svg" alt="云南楚雄" title="云南楚雄">
+                <img class="img_normal imgicon qiaotou" data-name="qiaotou" src="./images/normal.svg" alt="广东东莞桥头" title="广东东莞桥头">
+                <img class="img_normal imgicon guangzhou" data-name="guangzhou" src="./images/normal.svg" alt="广东广州" title="广东广州">
+                <img class="img_normal imgicon shanwei" data-name="shanwei" src="./images/normal.svg" alt="广东汕尾" title="广东汕尾">
+                <img class="img_normal imgicon qingyuan" data-name="qingyuan" src="./images/normal.svg" alt="广东清远" title="广东清远">
+                <!-- <img class="img_normal imgicon xian" data-name="xian" src="./images/normal.svg" alt="西安" title="西安"> -->
+                <img class="img_normal imgicon yanan" data-name="yanan" src="./images/normal.svg" alt="陕西延安" title="陕西延安">
+                <img class="img_normal imgicon yangjiang" data-name="yangjiang" src="./images/normal.svg" alt="广东阳江" title="广东阳江">
+                <img class="img_normal imgicon heyuan" data-name="heyuan" src="./images/normal.svg" alt="广东河源" title="广东河源">
+                <img class="img_normal imgicon beijing" data-name="beijing" src="./images/normal.svg" alt="北京" title="北京">
+                <img class="img_normal imgicon sichuan" data-name="sichuan" src="./images/normal.svg" alt="四川乐山" title="四川乐山">
+                <img class="img_normal imgicon shanxi" data-name="shanxi" src="./images/normal.svg" alt="山西黎光" title="山西黎光">
+                <img class="img_normal imgicon jinan" data-name="jinan" src="./images/normal.svg" alt="山东济南" title="山东济南">
+                <img class="img_normal imgicon kelamayi" data-name="kelamayi" src="./images/normal.svg" alt="新疆克拉玛依" title="新疆克拉玛依">
+                <img class="img_normal imgicon yixian" data-name="yixian" src="./images/normal.svg" alt="河北易县" title="河北易县">
+                <img class="img_normal imgicon shanghai" data-name="shanghai" src="./images/normal.svg" alt="上海" title="上海">
+                <img class="img_normal imgicon fuzhou" data-name="fuzhou" src="./images/normal.svg" alt="福建福州" title="福建福州">
+                <img class="img_normal imgicon yulin" data-name="yulin" src="./images/normal.svg" alt="广西玉林" title="广西玉林">
+                <img class="img_normal imgicon yecheng" data-name="yecheng" src="./images/normal.svg" alt="新疆叶城" title="新疆叶城">
+
+
+
+
+            </div>
+            <div class="m_right">
+                <div class="r_top rightdiv">
+                    <div class="l_title">
+                        <img class="tit_img" src="./images/dztj.svg" alt="">
+                        <span class="tit_content">电站统计</span>
+                        <span class="tit_encontent">Costruction</span>
+                    </div>
+                    <div class="l_content t_content">
+                        <div class="dzsl">
+                            <img src="./images/dzsl.svg" alt="">
+                            <p class="title">电站数量</p>
+                            <div class="data" id='projectnum'></div>
+                            <span class="danwei">座</span>
+                        </div>
+
+                        <div class="cnrl">
+                            <img src="./images/cnrl.svg" alt="">
+                            <p class="title">储能容量</p>
+                            <div class="data" id="cnrl"></div>
+                            <span class="danwei">kWh</span>
+                        </div> 
+
+                        <div class="fdjrl">
+                            <img src="./images/power.svg" alt="">
+                            <p class="title">发电机容量</p>
+                            <div class="data" id="fdjl"></div>
+                            <span class="danwei">kW</span>
+                        </div>
+
+                        <!-- <div class="xnyrl">
+                            <img src="./images/newenerge.svg" alt="">
+                            <p class="title">新能源容量</p>
+                            <div class="data">98.23</div>
+                            <span class="danwei">kW</span>
+                        </div> -->
+
+                    </div>
+                </div>
+                <div class="r_bottom rightdiv">
+                    <div class="l_title">
+                        <img class="tit_img" src="./images/jjxy.svg" alt="">
+                        <span class="tit_content">经济效益</span>
+                        <span class="tit_encontent">Economic Benefit</span>
+                    </div>
+                    <div class="l_content b_content">
+                        <div class="c_left div_content">
+                            <div class="jj_top">
+                                <div>
+                                    <span class="price" id="drjy">76.01</span>
+                                    <span class="danwei">万元</span>
+                                </div>
+                                <p>当日节约电费</p>
+                            </div>
+                            <div class="jj_bottom drjy"></div>
+
+                        </div>
+                        <div class="c_middle div_content">
+                            <div class="jj_top">
+                                <div>
+                                    <span class="price" id="dyjy">123.09</span>
+                                    <span class="danwei">万元</span>
+                                </div>
+                                <p>当月节约电费</p>
+                            </div>
+                            <div class="jj_bottom dyjy"></div>
+
+                        </div>
+                        <div class="c_right div_content">
+                            <div class="jj_top">
+                                <div>
+                                    <span class="price" id="qbjy">1092.12</span>
+                                    <span class="danwei">万元</span>
+                                </div>
+                                <p>总节约电费</p>
+                            </div>
+                            <div class="jj_bottom qbjy"></div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="bootom">
+            <div class="b_left b_div">
+                <div class="l_title">
+                    <img class="tit_img" src="./images/ssglline.svg" alt="">
+                    <span class="tit_content">实时功率曲线</span>
+                    <span class="tit_encontent">Real-time Power Curve</span>
+                </div>
+                <div id="sjglq" class="l_content"></div>
+            </div>
+            <div class="b_center_l b_div">
+                <div class="l_title">
+                    <img class="tit_img" src="./images/dianliang.svg" alt="">
+                    <span class="tit_content">月每日电量统计</span>
+                    <span class="tit_encontent">Daily Electricity Statistics</span>
+                </div>
+                <div id="ydltj" class="l_content"></div>
+            </div>
+            <div class="b_center_r b_div">
+                <div class="l_title">
+                    <img class="tit_img" src="./images/dianliang.svg" alt="">
+                    <span class="tit_content">年每月电量统计</span>
+                    <span class="tit_encontent">Monthly Electricity Statistics</span>
+                </div>
+                <div id="ndltj" class="l_content"></div>
+            </div>
+            <div class="b_right b_div">
+                <div class="l_title last">
+                    <img class="tit_img" src="./images/jydl.svg" alt="">
+                    <span class="tit_content">月节约费用统计</span>
+                    <span class="tit_encontent">Monthly Electricity Saving Statistics</span>
+                </div>
+                <div id="yjydl" class="l_content"></div>
+            </div>
+        </div>
+    </div>
+
+<script src="./js/jquery-3.4.1.js"></script>
+<script type="text/javascript" src="./layer/layer.js"></script>
+<script src="./js/echarts.js"></script>
+
+<script src="./js/waterTank.js"></script>
+<script>
+    $(document).ready(function() {
+
+        updateline();// 首次加载立即请求数据
+        setInterval(updateline,10*60*1000); // 首次加载之后，每十分钟重新请求一次数据
+        function updateline (){
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                url: 'http://112.74.169.99:21021/api/TokenAuth/GetDigitalData',
+                success: function (data) {
+                    const dataa = {
+                        result: {
+                            realtimelist:[3,4,5,8,2,6,10,23,45,33,2,5],
+                            realtimedata:[3,4,5,8,2,6,10,23,45,33,2,5],
+                            dailyelectricity:[3,4,5,8,2,6,10,23,45,33,2,5],
+                            monthlyelectricity:[3,4,5,8,2,6,10,23,45,33,2,5],
+                            monthlysave:[3,4,5,8,2,6,10,23,45,33,2,5,45,33,46,7,8,9,3,45,33,22,11,22,44,45,67,77,55,3,33],
+                            totalDevice:23,
+                            totalBMS:224,
+                            totalDG:100,
+
+                        }
+                    }
+                    // console.log(dataa);
+                    // console.log(data);
+                    var realtimelist = dataa.result.realtimelist; //实时功率曲线时间 x轴
+                    var realtimedata = dataa.result.realtimedata; //实时功率曲线时间 y轴
+                    var dailyelectricity = dataa.result.dailyelectricity; //月每日电量统计 y轴
+                    var monthlyelectricity = dataa.result.monthlyelectricity; //年每月电量统计 y轴
+                    var monthlysave = dataa.result.monthlysave; //月节约费用统计 y轴
+
+                    var projectnum = dataa.result.totalDevice;// 电站数量
+                    var cnrl = dataa.result.totalBMS;// 储能容量
+                    var fdjl = dataa.result.totalDG;// 发电机容量
+
+                    // 1
+                    let ec_sjglq = echarts.init(document.getElementById('sjglq'));
+                        let data1x = realtimelist;
+                        let data1y = realtimedata;
+                        let op_sjglq = {
+                            backgroundColor: 'rgba(255,255,255,0)',
+                            tooltip: {//提示框组件
+                                trigger: 'axis',
+                                formatter: '时间:{b}<br />{a0}:{c0}',
+                                axisPointer: {
+                                    lineStyle: {
+                                        fontFamily: 'MicrosoftYaHei',
+                                        fontStyle: 'normal',
+                                        fontSize: 12,
+                                        color: '#57617B'
+                                    }
+                                }
+                            },
+                            grid: {// 网格
+                                left: '10%',
+                                right: '6%',
+                                bottom: '20%',
+                                top: '20%',
+                                containLabel: false
+                            },
+                            legend: {//图例组件，颜色和名字
+                                icon: 'rect',
+                                itemWidth: 6,
+                                itemHeight: 6,
+                                data: ['功率'],
+                                right: '6%',
+                                top: '10%',
+                                textStyle: {// 文字样式的设置
+                                    fontSize: 12,
+                                    color: 'rgba(255,255,255,0.7)',
+                                    fontStyle: 'normal',
+                                    fontFamily: 'MicrosoftYaHei'
+                                },
+                            },
+                            xAxis: [{
+                                type: 'category',//类目轴 需要设置data
+                                boundaryGap: false,//坐标轴两边留白，控制曲线是否从0点开始
+                                data: data1x,
+                                axisLabel: {//坐标轴文字的设置
+                                    interval: 1,
+                                    rotate: 50,
+                                    textStyle: {
+                                        fontFamily: 'MicrosoftYaHei',
+                                        color: 'rgba(255,255,255,0.8)',
+                                        fontStyle: 'normal',
+                                        fontSize: 12
+                                    }
+                                },
+                                axisLine: {//坐标轴线的设置
+                                    lineStyle: {
+                                        fontFamily: 'MicrosoftYaHei',
+                                        color: 'rgba(255,255,255,0.8)',
+                                        fontStyle: 'normal',
+                                        fontSize: 12
+                                    }
+                                },
+                                axisTick: {//坐标轴刻度线的设置
+                                    show: true,
+                                    lineStyle: {
+                                        color: 'rgba(255,255,255,0.2)'
+                                    },
+                                },
+                            }],
+                            yAxis: [{
+                                type: 'value',//'value' 数值轴，适用于连续数据
+                                name: 'kW',
+                                // interval: 100,
+                                // max: 500,
+                                axisLabel: {// 坐标轴文字的设置
+                                    textStyle: {
+                                        color: 'rgba(255,255,255,0.8)',
+                                        fontStyle: 'normal',
+                                        fontFamily: 'MicrosoftYaHei',
+                                        fontSize: 12,
+                                    }
+                                },
+                                axisLine: {// 坐标轴线的设置
+                                    lineStyle: {
+                                        color: 'rgba(255,255,255,0.8)',
+                                        fontStyle: 'normal',
+                                        fontFamily: 'MicrosoftYaHei',
+                                        fontSize: 12,
+                                    }
+                                },
+                                axisTick: {//坐标轴刻度线的设置
+                                    show: false
+                                },
+                                splitLine: { // 网格线的设置
+                                    lineStyle: {
+                                        // y轴方向的网格线颜色
+                                        fontStyle: 'normal',
+                                        fontFamily: 'MicrosoftYaHei',
+                                        fontSize: 12,
+                                        color: 'rgba(255,255,255,0.05)'
+                                    }
+                                },
+                                splitArea: { // 网格区域的设置
+                                    show: true,
+                                    // 背景颜色
+                                    areaStyle: {
+                                        fontStyle: 'normal',
+                                        fontFamily: 'MicrosoftYaHei',
+                                        fontSize: 12,
+                                        color: ['rgba(20,49,105,0.21)']
+                                    }
+                                },
+                                scale: true
+                            }],
+                            series: [
+                                {
+                                    name: '功率',
+                                    symbol: "none",//去掉折线图上的小点点
+                                    type: 'line',
+                                    smooth: false,// 控制曲线形状
+                                    itemStyle: {
+                                        normal: {
+                                            color: '#16CCDC',
+                                            borderColor: '#e48b4c'
+                                        },
+                                    },
+                                    lineStyle: {// 线条样式设置
+                                        normal: {
+                                            width: 1
+                                        }
+                                    },
+                                    areaStyle: {// 区域样式设置
+                                        normal: {
+                                            color:
+                                                // echarts内置的渐变色生成器
+                                                new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                                    {
+                                                        offset: 0,
+                                                        color: '#03B8C8'
+                                                    },
+                                                    {
+                                                        offset: 1,
+                                                        color: 'rgba(3,184,200,0.00)'
+                                                    }
+                                                ], false),
+                                            shadowColor: 'rgba(228, 139, 76, 0.1)',
+                                            shadowBlur: 20,
+                                        }
+                                    },
+                                    symbolSize: 4,
+                                    data: data1y,
+                                    smooth: true
+                                }
+                            ]
+                        };
+                        ec_sjglq.setOption(op_sjglq);
+
+                    // 2
+                    let ec_ydltj = echarts.init(document.getElementById('ydltj'));
+                        var data2x = [];
+                        data2x = outmouth(dailyelectricity, data2x);
+                        let data2y = dailyelectricity;
+                        var op_ydltj = {
+                            backgroundColor: 'rgba(255,255,255,0)',
+                            tooltip: { // 提示框组件
+                                trigger: 'axis',
+                                formatter: '{b}日<br />{a0}:{c0}',
+                                axisPointer: {
+                                    type: 'shadow',
+                                    // type: 'none',
+                                    label: {
+                                        backgroundColor: '#6a7985'
+                                    }
+                                },
+                                textStyle: {
+                                    color: '#BCC5E3',
+                                    fontStyle: 'normal',
+                                    fontFamily: '微软雅黑',
+                                    fontSize: 12,
+                                }
+                            },
+                            grid: { // 网格
+                                left: '15%',
+                                right: '6%',
+                                bottom: '12%',
+                                top: '20%',
+                                containLabel: false,
+                            },
+                            legend: { //图例组件，颜色和名字
+                                icon: 'rect',
+                                itemWidth: 6,
+                                itemHeight: 6,
+                                data: ['发电量'],
+                                right: '6%',
+                                top: '10%',
+                                textStyle: {// 文字样式的设置
+                                    fontSize: 12,
+                                    color: 'rgba(255,255,255,0.7)',
+                                    fontStyle: 'normal',
+                                    fontFamily: 'MicrosoftYaHei'
+                                }
+                            },
+                            xAxis: [{
+                                type: 'category',//类目轴 需要设置data
+                                boundaryGap: true, //坐标轴两边留白，控制曲线是否从0点开始
+                                data: data2x,
+                                axisLabel: { //坐标轴文字的相关设置
+                                    interval: 1, //设置为 1，表示『隔一个标签显示一个标签』
+                                    textStyle: {// 文字样式的设置
+                                        fontFamily: 'MicrosoftYaHei',
+                                        color: 'rgba(255,255,255,0.8)',
+                                        fontStyle: 'normal',
+                                        fontSize: 12
+                                    }
+                                },
+                                axisLine: { //坐标轴轴线相关设置
+                                    lineStyle: {
+                                        fontFamily: 'MicrosoftYaHei',
+                                        color: 'rgba(255,255,255,0.6)',
+                                        fontStyle: 'normal',
+                                        fontSize: 12
+                                    }
+                                },
+                                axisTick: { //坐标轴刻度相关设置
+                                    show: false,
+                                },
+                                splitLine: { //坐标轴在 grid 区域中的分隔线。
+                                    show: false,
+                                }
+                            }],
+                            yAxis: [{
+                                type: 'value',
+                                name: 'kWh',
+                                axisLabel: {// 坐标轴文字的设置
+                                    textStyle: {
+                                        color: 'rgba(255,255,255,0.8)',
+                                        fontStyle: 'normal',
+                                        fontFamily: 'MicrosoftYaHei',
+                                        fontSize: 10,
+                                    }
+                                },
+                                axisLine: {// 坐标轴线的设置
+                                    lineStyle: {
+                                        color: 'rgba(255,255,255,0.8)'
+                                    }
+                                },
+                                axisTick: {//坐标轴刻度线的设置
+                                    show: false
+                                },
+                                splitLine: {// 网格线的设置
+                                    lineStyle: {
+                                        fontStyle: 'normal',
+                                        fontFamily: 'MicrosoftYaHei',
+                                        fontSize: 12,
+                                        color: 'rgba(255,255,255,0.05)'
+                                    }
+                                },
+                                splitArea: {// 网格区域的设置
+                                    show: true,
+                                    areaStyle: {
+                                        fontStyle: 'normal',
+                                        fontFamily: 'MicrosoftYaHei',
+                                        fontSize: 12,
+                                        color: ['rgba(20,49,105,0.21)']
+                                    }
+                                }
+                                // scale: true
+                            }],
+                            series: [
+                                {
+                                    name: '发电量',
+                                    type: 'bar',
+                                    data: data2y,
+                                    barWidth: 8,
+                                    barGap: 0, //柱间距离
+                                    itemStyle: { // 图形样式的设置
+                                        normal: {
+                                            color:
+                                                // echarts内置的渐变色生成器
+                                                new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                                    {
+                                                        offset: 0,
+                                                        color: '#FF7D23'
+                                                    },
+                                                    {
+                                                        offset: 1,
+                                                        color: 'rgba(255,125,35,0)'
+                                                    }
+                                                ], false),
+                                            shadowColor: 'rgba(0, 0, 0, 0.1)',
+                                            shadowBlur: 10,
+                                        },
+                                    }
+                                },
+                            ]
+                        };
+                        ec_ydltj.setOption(op_ydltj);
+
+                    // 3
+                    let ec_ndltj = echarts.init(document.getElementById('ndltj'));
+                        let data3x = generateArray(1, 12);
+                        let data3y = monthlyelectricity;
+
+                        var op_ndltj = {
+                            backgroundColor: 'rgba(255,255,255,0)',
+                            tooltip: { // 提示框组件
+                                trigger: 'axis',
+                                formatter: '{b}月<br />{a0}:{c0}',
+                                axisPointer: {
+                                    type: 'shadow',
+                                    label: {
+                                        backgroundColor: '#6a7985'
+                                    }
+                                },
+                                textStyle: {
+                                    color: '#BCC5E3',
+                                    fontStyle: 'normal',
+                                    fontFamily: '微软雅黑',
+                                    fontSize: 12,
+                                }
+                            },
+                            grid: { // 网格
+                                left: '15%',
+                                right: '6%',
+                                bottom: '12%',
+                                top: '20%',
+                                containLabel: false,
+                            },
+                            legend: { //图例组件，颜色和名字
+                                icon: 'rect',
+                                itemWidth: 6,
+                                itemHeight: 6,
+                                data: ['发电量'],
+                                right: '6%',
+                                top: '10%',
+                                textStyle: {// 文字样式的设置
+                                    fontSize: 12,
+                                    color: 'rgba(255,255,255,0.7)',
+                                    fontStyle: 'normal',
+                                    fontFamily: 'MicrosoftYaHei'
+                                }
+                            },
+                            xAxis: [{
+                                type: 'category',//类目轴 需要设置data
+                                boundaryGap: true, //坐标轴两边留白，控制曲线是否从0点开始
+                                data: data3x,
+                                axisLabel: { //坐标轴文字的相关设置
+                                    interval: 0, //设置为 1，表示『隔一个标签显示一个标签』
+                                    textStyle: {// 文字样式的设置
+                                        fontFamily: 'MicrosoftYaHei',
+                                        color: 'rgba(255,255,255,0.8)',
+                                        fontStyle: 'normal',
+                                        fontSize: 12
+                                    }
+                                },
+                                axisLine: { //坐标轴轴线相关设置
+                                    lineStyle: {
+                                        fontFamily: 'MicrosoftYaHei',
+                                        color: 'rgba(255,255,255,0.6)',
+                                        fontStyle: 'normal',
+                                        fontSize: 12
+                                    }
+                                },
+                                axisTick: { //坐标轴刻度相关设置
+                                    show: false,
+                                },
+                                splitLine: { //坐标轴在 grid 区域中的分隔线。
+                                    show: false,
+                                }
+                            }],
+                            yAxis: [{
+                                type: 'value',
+                                name: 'kWh',
+                                axisLabel: {// 坐标轴文字的设置
+                                    textStyle: {
+                                        color: 'rgba(255,255,255,0.8)',
+                                        fontStyle: 'normal',
+                                        fontFamily: 'MicrosoftYaHei',
+                                        fontSize: 10,
+                                    }
+                                },
+                                axisLine: {// 坐标轴线的设置
+                                    lineStyle: {
+                                        color: 'rgba(255,255,255,0.8)'
+                                    }
+                                },
+                                axisTick: {//坐标轴刻度线的设置
+                                    show: false
+                                },
+                                splitLine: {// 网格线的设置
+                                    lineStyle: {
+                                        fontStyle: 'normal',
+                                        fontFamily: 'MicrosoftYaHei',
+                                        fontSize: 12,
+                                        color: 'rgba(255,255,255,0.05)'
+                                    }
+                                },
+                                splitArea: {// 网格区域的设置
+                                    show: true,
+                                    areaStyle: {
+                                        fontStyle: 'normal',
+                                        fontFamily: 'MicrosoftYaHei',
+                                        fontSize: 12,
+                                        color: ['rgba(20,49,105,0.21)']
+                                    }
+                                },
+                                scale: true
+                            }],
+                            series: [
+                                {
+                                    name: '发电量',
+                                    type: 'bar',
+                                    data: data3y,
+                                    barWidth: 8,
+                                    barGap: 0, //柱间距离
+                                    itemStyle: { // 图形样式的设置
+                                        normal: {
+                                            color:
+                                                // echarts内置的渐变色生成器
+                                                new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                                    {
+                                                        offset: 0,
+                                                        color: '#FF6E94'
+                                                    },
+                                                    {
+                                                        offset: 1,
+                                                        color: 'rgba(255,125,35,0)'
+                                                    }
+                                                ], false),
+                                            shadowColor: 'rgba(0, 0, 0, 0.1)',
+                                            shadowBlur: 10,
+                                        },
+                                    }
+                                },
+                            ]
+                        };
+
+                        ec_ndltj.setOption(op_ndltj);
+
+                    // 4
+                    let ec_yjydl = echarts.init(document.getElementById('yjydl'));
+                        let data4x = [];
+                        data4x = outmouth(monthlysave, data4x);
+                        let datar = [];
+                        datar = outonehandrand();
+                        let datal = monthlysave;
+                        let op_yjydl = {
+                            backgroundColor: 'rgba(255,255,255,0)',
+                            tooltip: {//提示框组件
+                                trigger: 'axis',
+                                axisPointer: {
+                                    // type: 'none',
+                                    type: 'line',
+                                    lineStyle: {
+                                        fontFamily: 'MicrosoftYaHei',
+                                        fontStyle: 'normal',
+                                        fontSize: 12,
+                                        color: '#57617B'
+                                    }
+                                },
+                            },
+                            grid: {// 网格
+                                left: '15%',
+                                right: '6%',
+                                bottom: '12%',
+                                top: '20%',
+                                containLabel: false,
+                            },
+                            legend: {//图例组件，颜色和名字
+                                icon: 'rect',
+                                itemWidth: 6,
+                                itemHeight: 6,
+                                data: ["节约费用"],
+                                right: '6%',
+                                top: '10%',
+                                textStyle: {// 文字样式的设置
+                                    fontSize: 12,
+                                    color: 'rgba(255,255,255,0.7)',
+                                    fontStyle: 'normal',
+                                    fontFamily: 'MicrosoftYaHei'
+                                },
+                            },
+                            xAxis: [{
+                                type: 'category',
+                                boundaryGap: true, // 坐标轴两边留白
+                                gridIndex: 0,
+                                data: data4x,
+                                axisLabel: {//坐标轴文字的设置
+                                    interval: 1, //设置为 1，表示『隔一个标签显示一个标签』
+                                    textStyle: {
+                                        fontFamily: 'MicrosoftYaHei',
+                                        color: 'rgba(255,255,255,0.8)',
+                                        fontStyle: 'normal',
+                                        fontSize: 12
+                                    }
+                                },
+                                axisLine: {//坐标轴线的设置
+                                    show: false
+                                },
+                                axisTick: {//坐标轴刻度线的设置
+                                    show: false
+                                },
+                            }],
+                            yAxis: [
+                                {
+                                    type: 'value',//'value' 数值轴，适用于连续数据
+                                    name: '元',
+                                    // interval: 3000,
+                                    // max: 15000,
+                                    axisLabel: {// 坐标轴文字的设置
+                                        textStyle: {
+                                            color: 'rgba(255,255,255,0.8)',
+                                            fontStyle: 'normal',
+                                            fontFamily: 'MicrosoftYaHei',
+                                            fontSize: 10
+                                        }
+                                    },
+                                    axisLine: {// 坐标轴线的设置
+                                        show: false
+                                    },
+                                    axisTick: {//坐标轴刻度线的设置
+                                        show: false
+                                    },
+                                    splitLine: {// 网格线的设置
+                                        lineStyle: {
+                                            color: 'rgba(255,255,255,0)'
+                                        }
+                                    },
+                                    nameTextStyle: {
+                                        color: "rgba(255,255,255,0.6)" // 万kWh颜色
+                                    },
+                                    gridIndex: 0
+                                    // scale: true
+                                },
+                                {
+                                    type: 'value',
+                                    gridIndex: 0,
+                                    axisLabel: {// 坐标轴文字的设置
+                                        show: false
+                                    },
+                                    axisLine: {// 坐标轴线的设置
+                                        show: false
+                                    },
+                                    axisTick: {//坐标轴刻度线的设置
+                                        show: false
+                                    },
+                                    splitLine: {// 网格线的设置
+                                        show: false
+                                    },
+                                }
+                            ],
+                            series: [
+                                {
+                                    name: '节约费用',
+                                    type: 'bar',
+                                    data: datal,
+                                    barWidth: 8,
+                                    xAxisIndex: 0,
+                                    yAxisIndex: 0,
+                                    itemStyle: {
+                                        normal: {
+                                            color: '#2BCE67',
+                                            barBorderRadius: [20, 20, 20, 20]
+                                        }
+                                    }
+                                },
+                                {
+                                    // name: '背景',
+                                    type: 'bar',
+                                    data: datar,
+                                    barWidth: 8,
+                                    xAxisIndex: 0,
+                                    yAxisIndex: 1,
+                                    barGap: '-100%',
+                                    itemStyle: {
+                                        normal: {
+                                            color: 'rgba(255,255,255,0.1)',
+                                            barBorderRadius: [20, 20, 20, 20]
+                                        },
+                                    },
+                                    tooltip: {
+                                        show: false
+                                    },
+                                },
+                            ]
+                        };
+                        ec_yjydl.setOption(op_yjydl);
+
+                    console.log("请求成功");
+
+                    // 电站数量
+                    $("#projectnum").html(changeTwoDecimal(projectnum));
+                    // 储能容量
+                    $("#cnrl").html(changeTwoDecimal(cnrl));
+                    // 发电机容量
+                    $("#fdjl").html(changeTwoDecimal(fdjl));
+
+                },
+                error: function (err) {
+                    console.log(err);
+                    console.log("请求失败");
+                }
+            });
+        }
+
+        function outmouth(oldarr, datax) {
+            let myDate = new Date();
+            let themonth = myDate.getMonth() + 1;//获取当前月份(0-11,0代表1月)
+            let month_len;
+            if (themonth == 1 || themonth == 3 || themonth == 5 || themonth == 7 || themonth == 8 || themonth == 10 || themonth == 12) {
+                month_len = 31;
+                datax = generateArray(1, 31);
+            } else if (themonth == 4 || themonth == 6 || themonth == 9 || themonth == 11) {
+                month_len = 30;
+                datax = generateArray(1, 30);
+            } else if (themonth == 2) {
+                month_len = 28;
+                datax = generateArray(1, 28);
+            }
+            return datax;
+        }
+
+        function outonehandrand() {
+            let myDate = new Date();
+            let themonth = myDate.getMonth() + 1;       //获取当前月份(0-11,0代表1月)
+            let month_len;
+            if (themonth % 2 == 1) {
+                month_len = 31;
+            } else if (themonth % 2 == 0 && themonth != 2) {
+                month_len = 30;
+            } else if (themonth == 2) {
+                month_len = 28;
+            }
+            var datar = new Array(month_len).fill(100);
+            return datar;
+        }
+
+        function generateArray(start, end) {
+            return Array.from(new Array(end + 1).keys()).slice(start)
+        }
+
+        updateData();// 首次加载立即请求数据
+        setInterval(updateData,1000); // 首次加载之后，每1s重新请求一次数据
+        function updateData (){// 请求数据
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                url: 'http://112.74.169.99:21021/api/TokenAuth/GetRealDigitalData',
+                success: function (data) {
+                    var realpower = data.result.realpower;// 实时功率
+                    var dgeneration = data.result.dgeneration;// 当日发电量
+                    var tgeneration = data.result.tgeneration;// 总发电量
+                    var dsavemoney = data.result.dsavemoney;// 当日节约费用
+                    var msavemoney = data.result.msavemoney;// 当月节约费用
+                    var tsavemoney = data.result.tsavemoney;// 总节约费用
+                    var savecoal = data.result.savecoal;// 累计节约标准煤
+                    var saveco2 = data.result.saveco2;// 累计减排CO2
+                    
+
+                    // 实时功率
+                        var therealpower = getFloatStr(realpower.toString());
+                        var arrrealpower = therealpower.split('');
+                        if (arrrealpower.length == 6) {
+                            $(".ssgl span").get(0).innerHTML = '0';
+                            $(".ssgl span").get(1).innerHTML = arrrealpower[0];
+                            $(".ssgl span").get(2).innerHTML = arrrealpower[1];
+                            $(".ssgl span").get(3).innerHTML = arrrealpower[2];
+                            $(".ssgl span").get(4).innerHTML = arrrealpower[3];
+                            $(".ssgl span").get(5).innerHTML = arrrealpower[4];
+                            $(".ssgl span").get(6).innerHTML = arrrealpower[5];
+                        } else if (arrrealpower.length >= 7) {
+                            $(".ssgl span").get(0).innerHTML = arrrealpower[0];
+                            $(".ssgl span").get(1).innerHTML = arrrealpower[1];
+                            $(".ssgl span").get(2).innerHTML = arrrealpower[2];
+                            $(".ssgl span").get(3).innerHTML = arrrealpower[3];
+                            $(".ssgl span").get(4).innerHTML = arrrealpower[4];
+                            $(".ssgl span").get(5).innerHTML = arrrealpower[5];
+                            $(".ssgl span").get(6).innerHTML = arrrealpower[6];
+                        } else if (arrrealpower.length == 5) {
+                            $(".ssgl span").get(0).innerHTML = '0';
+                            $(".ssgl span").get(1).innerHTML = '0';
+                            $(".ssgl span").get(2).innerHTML = arrrealpower[0];
+                            $(".ssgl span").get(3).innerHTML = arrrealpower[1];
+                            $(".ssgl span").get(4).innerHTML = arrrealpower[2];
+                            $(".ssgl span").get(5).innerHTML = arrrealpower[3];
+                            $(".ssgl span").get(6).innerHTML = arrrealpower[4];
+                        }
+
+                    // 当日发电量
+                        var thedgeneration = changeTwoDecimal(dgeneration).toString();// 四舍五入到小数点后两位
+                        var thedgenerationLast = getFloatStr(thedgeneration.toString());// 小数点后两位补0
+                        var arrdgeneration = thedgenerationLast.split(''); // 切割字符串
+
+                        // 小数点前面位数不够补0
+                        var theindex = arrdgeneration.indexOf('.');
+                        if (arrdgeneration.length == 6) { // 整数部分 补1个0
+                            $(".drfd span").get(0).innerHTML = '0';
+                            $(".drfd span").get(1).innerHTML = arrdgeneration[0];
+                            $(".drfd span").get(2).innerHTML = arrdgeneration[1];
+                            $(".drfd span").get(3).innerHTML = arrdgeneration[2];
+                            $(".drfd span").get(4).innerHTML = arrdgeneration[3];
+                            $(".drfd span").get(5).innerHTML = arrdgeneration[4];
+                            $(".drfd span").get(6).innerHTML = arrdgeneration[5];
+                        } else if (arrdgeneration.length >= 7) {// 整数部分 不补0
+                            if(theindex >= 6){
+                                var changegeneration = dgeneration/1000;
+                                var splitchange = changegeneration.toString().split('');
+                              
+                                if(splitchange[0]){
+                                    $(".drfd span").get(0).innerHTML = splitchange[0];
+                                }else{
+                                    $(".drfd span").get(0).innerHTML = '0';
+                                }
+
+                                if(splitchange[1]){
+                                    $(".drfd span").get(1).innerHTML = splitchange[1];
+                                }else{
+                                    $(".drfd span").get(1).innerHTML = '0';
+                                }
+
+                                if(splitchange[2]){
+                                    $(".drfd span").get(2).innerHTML = splitchange[2];
+                                }else{
+                                    $(".drfd span").get(2).innerHTML = '0';
+                                }
+                                
+                                if(splitchange[3]){
+                                    $(".drfd span").get(3).innerHTML = splitchange[3];
+                                }else{
+                                    $(".drfd span").get(3).innerHTML = '0';
+                                }
+
+                                if(splitchange[4]){
+                                    $(".drfd span").get(4).innerHTML = splitchange[4];
+                                }else{
+                                    $(".drfd span").get(4).innerHTML = '0';
+                                }
+
+                                if(splitchange[5]){
+                                    $(".drfd span").get(5).innerHTML = splitchange[5];
+                                }else{
+                                    $(".drfd span").get(5).innerHTML = '0';
+                                }
+
+                                if(splitchange[6]){
+                                    $(".drfd span").get(6).innerHTML = splitchange[6];
+                                }else{
+                                    $(".drfd span").get(6).innerHTML = '0';
+                                }
+                                
+                                $("#drfddw").html("");
+                                $("#drfddw").html("MWh");
+                            }else{
+                                $(".drfd span").get(0).innerHTML = arrdgeneration[0];
+                                $(".drfd span").get(1).innerHTML = arrdgeneration[1];
+                                $(".drfd span").get(2).innerHTML = arrdgeneration[2];
+                                $(".drfd span").get(3).innerHTML = arrdgeneration[3];
+                                $(".drfd span").get(4).innerHTML = arrdgeneration[4];
+                                $(".drfd span").get(5).innerHTML = arrdgeneration[5];
+                                $(".drfd span").get(6).innerHTML = arrdgeneration[6];
+                                $("#drfddw").html("");
+                                $("#drfddw").html("kWh");
+                            }
+                            
+                        } else if (arrdgeneration.length == 5) {// 整数部分 补2个0
+                            $(".drfd span").get(0).innerHTML = '0';
+                            $(".drfd span").get(1).innerHTML = '0';
+                            $(".drfd span").get(2).innerHTML = arrdgeneration[0];
+                            $(".drfd span").get(3).innerHTML = arrdgeneration[1];
+                            $(".drfd span").get(4).innerHTML = arrdgeneration[2];
+                            $(".drfd span").get(5).innerHTML = arrdgeneration[3];
+                            $(".drfd span").get(6).innerHTML = arrdgeneration[4];
+                        }
+
+
+                    // 总发电量
+                        var thetgeneration = changeTwoDecimal(tgeneration).toString();// 四舍五入到小数点后两位
+                        var thetgenerationLast = getFloatStr(thetgeneration.toString());// 小数点后两位补0
+                        var arrtgeneration = thetgenerationLast.split('');// 切割字符串
+                        // 小数点前面位数不够补0
+                        if (arrtgeneration.length == 6) {// 整数部分 补1个0
+                            $(".zfd span").get(0).innerHTML = '0';
+                            $(".zfd span").get(1).innerHTML = arrtgeneration[0];
+                            $(".zfd span").get(2).innerHTML = arrtgeneration[1];
+                            $(".zfd span").get(3).innerHTML = arrtgeneration[2];
+                            $(".zfd span").get(4).innerHTML = arrtgeneration[3];
+                            $(".zfd span").get(5).innerHTML = arrtgeneration[4];
+                            $(".zfd span").get(6).innerHTML = arrtgeneration[5];
+                        } else if (arrtgeneration.length >= 7) {// 整数部分 不补0
+                            $(".zfd span").get(0).innerHTML = arrtgeneration[0];
+                            $(".zfd span").get(1).innerHTML = arrtgeneration[1];
+                            $(".zfd span").get(2).innerHTML = arrtgeneration[2];
+                            $(".zfd span").get(3).innerHTML = arrtgeneration[3];
+                            $(".zfd span").get(4).innerHTML = arrtgeneration[4];
+                            $(".zfd span").get(5).innerHTML = arrtgeneration[5];
+                            $(".zfd span").get(6).innerHTML = arrtgeneration[6];
+                        } else if (arrtgeneration.length == 5) {// 整数部分 补2个0
+                            $(".zfd span").get(0).innerHTML = '0';
+                            $(".zfd span").get(1).innerHTML = '0';
+                            $(".zfd span").get(2).innerHTML = arrtgeneration[0];
+                            $(".zfd span").get(3).innerHTML = arrtgeneration[1];
+                            $(".zfd span").get(4).innerHTML = arrtgeneration[2];
+                            $(".zfd span").get(5).innerHTML = arrtgeneration[3];
+                            $(".zfd span").get(6).innerHTML = arrtgeneration[4];
+                        }
+
+                    // 当日节约费用
+                        $("#drjy").html(changeTwoDecimal(dsavemoney));
+
+                    // 当月节约费用
+                        $("#dyjy").html(changeTwoDecimal(msavemoney));
+
+                    // 总节约费用
+                        $("#qbjy").html(changeTwoDecimal(tsavemoney));
+
+                    // 累计节约标准煤
+                        $(".bzdata").html(changeTwoDecimal(savecoal));
+
+                    // 累计减排CO2
+                        $(".eydata").html(changeTwoDecimal(saveco2));
+                    
+
+                    // console.log("请求成功");
+                },
+                error: function (err) {
+                    // console.log("请求失败");
+                }
+            });
+        }
+
+        // 小数点后两位补0
+        function getFloatStr(num) {
+            num += '';
+            num = num.replace(/[^0-9|\.]/g, ''); //清除字符串中的非数字非.字符
+
+            if (/^0+/) //清除字符串开头的0
+                num = num.replace(/^0+/, '');
+
+            if (!/\./.test(num)) //为整数字符串在末尾添加.00
+                num += '.00';
+
+            if (/^\./.test(num)) //字符以.开头时,在开头添加0
+                num = '0' + num;
+
+            num += '00';        //在字符串末尾补零
+            num = num.match(/\d+\.\d{2}/)[0];
+            return num;
+
+        };
+
+        // 四舍五入到小数点后两位
+        function changeTwoDecimal(x) {
+            var f_x = parseFloat(x);
+            if (isNaN(f_x)) {
+                return false;
+            }
+            f_x = Math.round(f_x * 100) / 100;
+            return f_x;
+        }
+
+        // 经济效益
+        $('.drjy').waterTank({
+            width: 40,
+            height: 150,
+            color: '#0068FF',
+            level: 56
+        });
+        $('.dyjy').waterTank({
+            width: 40,
+            height: 150,
+            color: '#00C864',
+            level: 46
+        });
+        $('.qbjy').waterTank({
+            width: 40,
+            height: 150,
+            color: '#7A3BCD',
+            level: 42
+        });
+
+        var drjy_count = $('<p class="count c_drjy">27%</p>');
+        var drjy_countname = $('<p class="tips t_drjy">当日节省率</p>');
+        $('.drjy').append(drjy_countname);
+        $('.drjy').prepend(drjy_count);
+
+        var dyjy_count = $('<p class="count c_dyjy">22%</p>');
+        var dyjy_countname = $('<p class="tips t_dyjy">当月节省率</p>');
+        $('.dyjy').append(dyjy_countname);
+        $('.dyjy').prepend(dyjy_count);
+
+        var qbjy_count = $('<p class="count c_qbjy">20%</p>');
+        var qbjy_countname = $('<p class="tips t_qbjy">总节省率</p>');
+        $('.qbjy').append(qbjy_countname);
+        $('.qbjy').prepend(qbjy_count);
+
+
+
+        function getDate(){
+            var myDate = new Date();
+            //获取当前年
+            var year = myDate.getFullYear();
+            //获取当前月
+            var month = myDate.getMonth() + 1;
+            //获取当前日
+            var date = myDate.getDate();
+            var h = myDate.getHours(); //获取当前小时数(0-23)
+            var m = myDate.getMinutes(); //获取当前分钟数(0-59)
+            var s = myDate.getSeconds();
+            //获取当前时间
+            var now = year + '年' + conver(month) + "月" + conver(date) + "日    " + conver(h) + ':' + conver(m) + ":" + conver(s);
+            return now;
+        }
+
+        //日期时间处理
+        function conver(s) {
+            return s < 10 ? '0' + s : s;
+        }
+        // console.log();
+        setInterval(function(){
+            document.getElementById("realTime").innerHTML = getDate();
+        },1000);
+        //打印输出
+
+
+        // 线上userid  accessToken
+        // var userid = getCookie('userId');
+        // var accessToken = getCookie('accessToken');
+
+        // 本地测试userid  accessToken
+        var userid = 1;
+        var accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJBc3BOZXQuSWRlbnRpdHkuU2VjdXJpdHlTdGFtcCI6ImNiNDg4NjNkLWRjNzEtYmEzMC0zNjM5LTM5ZjMzYTBkN2Q1NCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwic3ViIjoiMSIsImp0aSI6IjA3ZmUyMGNkLTFlMTUtNGM4ZS1iNGVlLTc5ZmM4MzAxOTkxZSIsImlhdCI6MTYxMDA5MjExOSwibmJmIjoxNjEwMDkyMTE5LCJleHAiOjE2MTAxNzg1MTksImlzcyI6IkpOWVlTZXJ2aWNlIiwiYXVkIjoiSk5ZWVNlcnZpY2UifQ.LAwpwXlqoE3MKBhT8JPG4P_Nmuolc0pAC_HXk2LpKiM';
+
+
+        // 请求项目数据
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: 'http://112.74.169.99:21021/api/services/app/ProjectService/GetProjectInfosByUserid?userid=' + userid,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Accept",
+                    "application/json, text/javascript, */*; q=0.01"
+                );
+                xhr.setRequestHeader("Authorization", accessToken);
+                xhr.setRequestHeader('.AspNetCore.Culture',
+                    'zh-Hans');
+            },
+            success: function (res) {
+                if(res.success){
+                    var data = res.result;
+                    console.log(data);
+                    var zhongshan = [],shenzhen=[],zhuhai=[],yunnan=[],qiaotou=[],guangzhou=[],shanwei=[],qingyuan=[],longyan=[],yangjiang=[],heyuan=[],beijing=[],sichuan=[],shanxi=[],yanan=[],jinan=[],kelamayi=[],yixian=[],shanghai=[],fuzhou=[],yulin=[],yecheng=[];
+                    // xian=[],
+                    for(var i=0;i<data.length;i++){
+                        if(data[i].city == '中山'){
+                            zhongshan.push(data[i]);
+                        }else if(data[i].city == '深圳'){
+                            shenzhen.push(data[i]);
+                        }else if(data[i].city == '珠海'){
+                            zhuhai.push(data[i]);
+                        }else if(data[i].city == '楚雄' || data[i].city == '云南'){
+                            yunnan.push(data[i]);
+                        }else if(data[i].city == '桥头' || data[i].city == '东莞'){
+                            qiaotou.push(data[i]);
+                        }else if(data[i].city == '广州'){
+                            guangzhou.push(data[i]);
+                        }else if(data[i].city == '汕尾'){
+                            shanwei.push(data[i]);
+                        }else if(data[i].city == '清远'){
+                            qingyuan.push(data[i]);
+                        }else if(data[i].city == '延安'){
+                            yanan.push(data[i]);
+                        }else if(data[i].city == '阳江'){
+                            yangjiang.push(data[i]);
+                        }else if(data[i].city == '河源'){
+                            heyuan.push(data[i]);
+                        }else if(data[i].city == '北京'){
+                            beijing.push(data[i]);
+                        }else if(data[i].city == '乐山'){ //四川
+                            sichuan.push(data[i]);
+                        }else if(data[i].city == '临汾'){ //山西
+                            shanxi.push(data[i]);
+                        }else if(data[i].city == '济南'){ //山东
+                            jinan.push(data[i]);
+                        }else if(data[i].city == '克拉玛依'){ //新疆
+                            kelamayi.push(data[i]);
+                        }else if(data[i].city == '易县'){ //河北
+                            yixian.push(data[i]);
+                        }else if(data[i].city == '上海'){ //上海
+                            shanghai.push(data[i]);
+                        }else if(data[i].city == '福州'){ //福建
+                            fuzhou.push(data[i]);
+                        }else if(data[i].city == '玉林'){ //广西
+                            yulin.push(data[i]);
+                        }else if(data[i].city == '叶城'){ //新疆
+                            yecheng.push(data[i]);
+                        }
+                    }
+
+                    $(".imgicon").click(function(arguments){
+                        var cityname;
+                        var dataname = $(arguments.target).attr("data-name");
+                        if( dataname == 'zhongshan' ){ cityname = zhongshan; }
+                        else if( dataname == 'shenzhen'){ cityname = shenzhen; }
+                        else if( dataname == 'zhuhai'){ cityname = zhuhai; }
+                        else if( dataname == 'yunnan'){ cityname = yunnan; }
+                        else if( dataname == 'qiaotou'){ cityname = qiaotou; }
+                        else if( dataname == 'guangzhou'){ cityname = guangzhou; }
+                        else if( dataname == 'shanwei'){ cityname = shanwei; }
+                        else if( dataname == 'qingyuan'){ cityname = qingyuan; }
+                        // else if( dataname == 'longyan'){ cityname = longyan; }
+                        // else if( dataname == 'xian'){ cityname = xian; }
+                        else if( dataname == 'yanan'){ cityname = yanan; }
+                        else if( dataname == 'yangjiang'){ cityname = yangjiang; }
+                        else if( dataname == 'heyuan'){ cityname = heyuan; }
+                        else if( dataname == 'beijing'){ cityname = beijing; }
+                        else if( dataname == 'sichuan'){ cityname = sichuan; }
+                        else if( dataname == 'shanxi'){ cityname = shanxi; }
+                        else if( dataname == 'jinan'){ cityname = jinan; }
+                        else if( dataname == 'kelamayi'){ cityname = kelamayi; }
+                        else if( dataname == 'yixian'){ cityname = yixian; }
+                        else if( dataname == 'shanghai'){ cityname = shanghai; }
+                        else if( dataname == 'fuzhou'){ cityname = fuzhou; }
+                        else if( dataname == 'yulin'){ cityname = yulin; }
+                        else if( dataname == 'yecheng'){ cityname = yecheng; }
+
+                        layer.open({
+                            type: 1,
+                            title: '详细信息', //显示标题
+                            skin: 'layui-layer-rim', //加上边框
+                            area: ['420px'], //宽高
+                            content: eachprogram(cityname)
+                        });
+                    });
+
+                }
+
+            },
+            error: function(err){
+                console.log(err)
+
+            }
+        });
+
+
+
+        function getCookie(key){
+            var str_cookie = document.cookie;
+            var pattern = '\\b' + key + '[^;]+';
+            var reg = new RegExp(pattern);
+            var arr_name = reg.exec(str_cookie);
+            var val = arr_name[0].split('=');
+            return val[1];
+        }
+
+        function eachprogram(data){
+            // console.log(data);
+            var str = '';
+            for(var k=0;k<data.length;k++){
+
+                if(data[k].status == '通讯异常'){
+                    str += `<span onclick="window.location.href='http://112.74.169.99:18001/#/` + data[k].projectRemark + `?projectid=`+ data[k].id +`'" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger" style="margin:10px;font-size:14px;">` + data[k].projectNameCN + `<span style="font-size:12px;">(通讯异常)</span>` + `</span>`;
+
+                }else if(data[k].status == '运行中'){
+                    str += `<span onclick="window.location.href='http://112.74.169.99:18001/#/` + data[k].projectRemark + `?projectid=`+ data[k].id +`'" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal" style="margin:10px;font-size:14px;">` + data[k].projectNameCN + `<span style="font-size:12px;">(运行中)</span>` + `</span>`;
+                }
+                // else if(data[k].status == '已完成'){
+                //     str += `<span onclick="window.location.href='http://112.74.169.99:18001/#/` + data[k].projectRemark + `?projectid=`+ data[k].id +`'" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal" style="margin:10px;font-size:14px;">` + data[k].projectNameCN + `<span style="font-size:12px;">(已完成)</span>` + `</span>`;
+                // }
+                
+            }
+            return str;
+        }
+
+
+
+
+    });
+
+
+</script>
+</body>
+
+</html>
